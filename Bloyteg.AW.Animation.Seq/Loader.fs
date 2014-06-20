@@ -22,7 +22,7 @@ module internal SeqLoader =
     let loadFromStream (stream: System.IO.Stream) = 
         match (stream.ReadByte(), stream.ReadByte(), stream.ReadByte(), stream.ReadByte()) with
         | (0x7F, 0x7F, 0x7F, 0x79) | (0x7F, 0x7F, 0x7F, 0x7A) -> loadBinarySeqFromStream(stream)
-        | (_, _, _, _) -> loadTextSeqFromStream(stream)
+        | (0x41, 0x57, 0x53, 0x51) -> loadTextSeqFromStream(stream)
         | _ -> failwith "File format not recognized."
 
 type Loader() =
