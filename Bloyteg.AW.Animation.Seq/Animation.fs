@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace MrByte.AW.Animation.Seq
+namespace Bloyteg.AW.Animation.Seq
 
-type Quaternion = Quaternion of w: float * x: float * y: float * z: float
-type Translation = Translation of x: float * y: float * z: float
+type Quaternion = { W: float; X: float; Y: float; Z: float }
+type Vector = { X: float; Y: float; Z: float }
 
 type Keyframe = {
     Keyframe: int
-    Quaternion: Quaternion
-    Translation: Translation
+    Rotation: Quaternion
+    Translation: Vector
 }
 
 type Joint = {
