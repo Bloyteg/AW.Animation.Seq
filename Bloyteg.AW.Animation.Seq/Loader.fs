@@ -15,8 +15,16 @@
 namespace Bloyteg.AW.Animation.Seq
 
 module internal SeqLoader =
+    let readInt16 (stream: System.IO.Stream): int =
+        (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
+
     let readInt32 (stream: System.IO.Stream): int =
         (stream.ReadByte() <<< 24) ||| (stream.ReadByte() <<< 16) ||| (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
+
+    let readString (stream: System.IO.Stream) length =
+        let stringBytes: byte array = Array.zeroCreate length
+        stream.Read(stringBytes, 0, length) |> ignore
+        System.Text.ASCIIEncoding.ASCII.GetString(stringBytes)
 
     let loadBinarySeqFromStream stream: Animation = { FramesPerSecond = 30; FrameCount = 0; Joints = Seq.empty }
 
