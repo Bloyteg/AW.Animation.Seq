@@ -15,15 +15,24 @@
 namespace Bloyteg.AW.Animation.Seq
 
 module internal SeqLoader =
-    let loadBinarySeqFromStream stream: Animation = failwith "Not implemented."
+    let readInt32 (stream: System.IO.Stream): int =
+        (stream.ReadByte() <<< 24) ||| (stream.ReadByte() <<< 16) ||| (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
+
+    let loadBinarySeqFromStream stream: Animation = { FramesPerSecond = 30; FrameCount = 0; Joints = Seq.empty }
 
     let loadTextSeqFromStream stream: Animation = failwith "Not implemented."
 
+    let (|Binary|Text|Unknown|) (stream: System.IO.Stream) =
+        match stream |> readInt32 with
+        | (0x7F7F7F79) | (0x7F7F7F7A) -> Binary
+        | (0x41575351) -> Text
+        | _ -> Unknown
+
     let loadFromStream (stream: System.IO.Stream) = 
-        match (stream.ReadByte(), stream.ReadByte(), stream.ReadByte(), stream.ReadByte()) with
-        | (0x7F, 0x7F, 0x7F, 0x79) | (0x7F, 0x7F, 0x7F, 0x7A) -> loadBinarySeqFromStream(stream)
-        | (0x41, 0x57, 0x53, 0x51) -> loadTextSeqFromStream(stream)
-        | _ -> failwith "File format not recognized."
+        match stream with
+        | Binary -> loadBinarySeqFromStream stream
+        | Text -> loadTextSeqFromStream stream
+        | Unknown -> failwith "Unrecognized file type."
 
 type Loader() =
     member this.LoadFromStream(stream: System.IO.Stream) =
