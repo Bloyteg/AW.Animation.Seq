@@ -14,8 +14,9 @@
 
 namespace Bloyteg.AW.Animation.Seq
 
-type Quaternion = { W: float; X: float; Y: float; Z: float }
-type Vector = { X: float; Y: float; Z: float }
+type Quaternion = { W: single; X: single; Y: single; Z: single }
+type Vector = { X: single; Y: single; Z: single }
+    with static member Zero = { X = 0.0f; Y = 0.0f; Z = 0.0f }
 
 type Keyframe = {
     Keyframe: int
@@ -25,11 +26,11 @@ type Keyframe = {
 
 type Joint = {
     Name: string
-    Keyframes: Keyframe seq
+    Keyframes: Keyframe list
 }
 
 type Animation = {
     FramesPerSecond: int
     FrameCount: int
-    Joints: Joint seq
+    Joints: Joint list
 }

@@ -12,26 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 namespace Bloyteg.AW.Animation.Seq
+open BinaryStream
+open BinarySeqParser
 
-module internal SeqLoader = 
-    let readInt16 (stream : System.IO.Stream) : int = (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
-    let readInt32 (stream : System.IO.Stream) : int = 
-        (stream.ReadByte() <<< 24) ||| (stream.ReadByte() <<< 16) ||| (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
-    
-    let readString (stream : System.IO.Stream) length = 
-        let stringBytes : byte array = Array.zeroCreate length
-        stream.Read(stringBytes, 0, length) |> ignore
-        System.Text.ASCIIEncoding.ASCII.GetString(stringBytes).TrimEnd(char 0s)
-    
-    let loadBinarySeqFromStream stream : Animation = 
-        let frameCount = readInt16 stream
-        let jointCount = readInt32 stream
-        let modelNameLength = readInt16 stream
-        let modelName = readString stream modelNameLength
-        { FramesPerSecond = 30
-          FrameCount = frameCount
-          Joints = Seq.empty }
-    
+module internal SeqLoader =     
     let loadTextSeqFromStream stream : Animation = failwith "Not implemented."
     
     let (|Binary|Text|Unknown|) (stream : System.IO.Stream) = 

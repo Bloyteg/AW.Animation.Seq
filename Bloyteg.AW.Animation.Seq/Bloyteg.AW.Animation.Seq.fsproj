@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animation.fs" />
+    <Compile Include="BinaryStream.fs" />
+    <Compile Include="BinarySeqParser.fs" />
     <Compile Include="Loader.fs" />
   </ItemGroup>
   <PropertyGroup>
