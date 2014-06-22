@@ -11,32 +11,45 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 namespace Bloyteg.AW.Animation.Seq
 
-[<CLIMutable>]
-type Quaternion = { W: single; X: single; Y: single; Z: single }
+open System.Runtime.Serialization
 
 [<CLIMutable>]
-type Vector = { X: single; Y: single; Z: single }
-    with static member Zero = { X = 0.0f; Y = 0.0f; Z = 0.0f }
+[<DataContract(Namespace="")>]
+type Quaternion = 
+    { [<DataMember(Name="W")>] W : single
+      [<DataMember(Name="X")>] X : single
+      [<DataMember(Name="Y")>] Y : single
+      [<DataMember(Name="Z")>] Z : single }
 
 [<CLIMutable>]
-type Keyframe = {
-    Keyframe: int
-    Rotation: Quaternion
-    Translation: Vector
-}
+[<DataContract(Namespace="")>]
+type Vector = 
+    { [<DataMember(Name="X")>] X : single
+      [<DataMember(Name="Y")>] Y : single
+      [<DataMember(Name="Z")>] Z : single }
+    static member Zero = 
+        { X = 0.0f
+          Y = 0.0f
+          Z = 0.0f }
 
 [<CLIMutable>]
-type Joint = {
-    Name: string
-    Keyframes: Keyframe list
-}
+[<DataContract(Namespace="")>]
+type Keyframe = 
+    { [<DataMember(Name="Keyframe")>] Keyframe : int
+      [<DataMember(Name="Rotation")>] Rotation : Quaternion
+      [<DataMember(Name="Translation")>] Translation : Vector }
 
 [<CLIMutable>]
-type Animation = {
-    FramesPerSecond: int
-    FrameCount: int
-    Joints: Joint list
-}
+[<DataContract(Namespace="")>]
+type Joint = 
+    { [<DataMember(Name="Name")>] Name : string
+      [<DataMember(Name="Keyframes")>] Keyframes : Keyframe list }
+
+[<CLIMutable>]
+[<DataContract(Namespace="")>]
+type Animation = 
+    { [<DataMember(Name="FramesPerSecond")>] FramesPerSecond : int
+      [<DataMember(Name="FrameCount")>] FrameCount : int
+      [<DataMember(Name="Joints")>] Joints : Joint list }

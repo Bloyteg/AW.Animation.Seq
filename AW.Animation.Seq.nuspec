@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>Bloyteg.AW.Animation.Seq</id>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 		<authors>Joshua R. Rodgers</authors>
 		<description>Loader to load and parse the various SEQ animation formats used in Active Worlds.</description>
 		<language>en-US</language>
@@ -10,6 +10,7 @@
 		<licenseUrl>https://github.com/Bloyteg/AW.Animation.Seq/blob/develop/LICENSE</licenseUrl>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="FSharp.Core" targetFramework="net40" />
+			<frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net40" />
 		</frameworkAssemblies>
 	</metadata>
 	<files>
