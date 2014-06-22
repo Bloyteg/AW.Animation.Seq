@@ -14,21 +14,27 @@
 
 namespace Bloyteg.AW.Animation.Seq
 
+[<CLIMutable>]
 type Quaternion = { W: single; X: single; Y: single; Z: single }
+
+[<CLIMutable>]
 type Vector = { X: single; Y: single; Z: single }
     with static member Zero = { X = 0.0f; Y = 0.0f; Z = 0.0f }
 
+[<CLIMutable>]
 type Keyframe = {
     Keyframe: int
     Rotation: Quaternion
     Translation: Vector
 }
 
+[<CLIMutable>]
 type Joint = {
     Name: string
     Keyframes: Keyframe list
 }
 
+[<CLIMutable>]
 type Animation = {
     FramesPerSecond: int
     FrameCount: int
