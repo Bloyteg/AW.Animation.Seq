@@ -8,7 +8,7 @@
     <ProjectGuid>de93b485-f368-45c1-8281-8849999813ec</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MrByte.AW.Animation.Seq</RootNamespace>
-    <AssemblyName>MrByte.AW.Animation.Seq</AssemblyName>
+    <AssemblyName>Bloyteg.AW.Animation.Seq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>MrByte.AW.Animation.Seq</Name>

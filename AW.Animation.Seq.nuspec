@@ -8,11 +8,11 @@
 		<language>en-US</language>
 		<projectUrl>https://github.com/Bloyteg/AW.Animation.Seq</projectUrl>
 		<licenseUrl>https://github.com/Bloyteg/AW.Animation.Seq/blob/develop/LICENSE</licenseUrl>
-		<files>
-			<file src="AW.Animation.Seq\bin\Release\*.dll" target="lib" />
-		</files>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="FSharp.Core" targetFramework="net40" />
 		</frameworkAssemblies>
 	</metadata>
+	<files>
+		<file src="Bloyteg.AW.Animation.Seq\bin\Release\Bloyteg.AW.Animation.Seq.dll" target="lib" />
+	</files>
 </package>
