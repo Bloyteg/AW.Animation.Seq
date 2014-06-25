@@ -19,6 +19,17 @@ let readInt16 (stream : System.IO.Stream) : int = (stream.ReadByte() <<< 8) ||| 
 let readInt32 (stream : System.IO.Stream) : int = 
     (stream.ReadByte() <<< 24) ||| (stream.ReadByte() <<< 16) ||| (stream.ReadByte() <<< 8) ||| (stream.ReadByte())
 
+let tryReadInt32 (stream : System.IO.Stream) : int option =
+    let firstByte = stream.ReadByte()
+    let secondByte = stream.ReadByte()
+    let thirdByte = stream.ReadByte()
+    let fourthByte = stream.ReadByte()
+
+    if firstByte = -1 || secondByte = -1 || thirdByte = -1 || fourthByte = -1 then
+        None
+    else
+        Some((firstByte <<< 24) ||| (secondByte <<< 16) ||| (thirdByte <<< 8) ||| fourthByte)
+
 let readFloat32 (stream : System.IO.Stream) : single =
     let bytes : byte array = Array.zeroCreate 4
     stream.Read(bytes, 0, bytes.Length) |> ignore

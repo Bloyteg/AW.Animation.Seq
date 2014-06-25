@@ -49,8 +49,8 @@ let loadPositionBlock stream =
     } |> List.ofSeq
 
 let loadGlobalPositions (stream: System.IO.Stream) animation =
-    if stream.Position < stream.Length then
-        let totalBlocks = readInt32 stream
+    match (tryReadInt32 stream) with
+    | Some(totalBlocks) ->
         let rec loadDataBlocks currentBlock animation =
             if currentBlock < totalBlocks then
                 match currentBlock with
@@ -62,8 +62,7 @@ let loadGlobalPositions (stream: System.IO.Stream) animation =
                 animation
 
         loadDataBlocks 0 animation
-    else
-        animation
+    | None -> animation
 
 let loadBinarySeqFromStream stream : Animation = 
     let frameCount = readInt16 stream
