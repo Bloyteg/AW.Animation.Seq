@@ -43,6 +43,12 @@ type Keyframe =
 
 [<CLIMutable>]
 [<DataContract(Namespace="")>]
+type GlobalPositionKeyframe =
+    { [<DataMember(Name="Keyframe")>] Keyframe : int
+      [<DataMember(Name="Value")>] Value : single }
+
+[<CLIMutable>]
+[<DataContract(Namespace="")>]
 type Joint = 
     { [<DataMember(Name="Name")>] Name : string
       [<DataMember(Name="Keyframes")>] Keyframes : Keyframe list }
@@ -52,4 +58,7 @@ type Joint =
 type Animation = 
     { [<DataMember(Name="FramesPerSecond")>] FramesPerSecond : int
       [<DataMember(Name="FrameCount")>] FrameCount : int
-      [<DataMember(Name="Joints")>] Joints : Joint list }
+      [<DataMember(Name="Joints")>] Joints : Joint list 
+      [<DataMember(Name="GlobalXPositions")>] GlobalXPositions: GlobalPositionKeyframe list
+      [<DataMember(Name="GlobalYPositions")>] GlobalYPositions: GlobalPositionKeyframe list
+      [<DataMember(Name="GlobalZPositions")>] GlobalZPositions: GlobalPositionKeyframe list }

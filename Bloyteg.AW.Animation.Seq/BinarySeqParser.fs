@@ -39,6 +39,32 @@ let loadJoints jointCount stream =
                     Keyframes = (loadKeyframes keyframeCount stream) |> List.ofSeq }
     }
 
+let loadPositionBlock stream = 
+    (readInt32 stream) |> ignore
+    let positionCount = (readInt32 stream) - 1
+    seq { 
+        for currentPosition = 0 to (positionCount) do
+            yield { Keyframe = readInt32 stream
+                    Value = (readFloat32 stream) / 10.0f }
+    } |> List.ofSeq
+
+let loadGlobalPositions (stream: System.IO.Stream) animation =
+    if stream.Position < stream.Length then
+        let totalBlocks = readInt32 stream
+        let rec loadDataBlocks currentBlock animation =
+            if currentBlock < totalBlocks then
+                match currentBlock with
+                | 0 -> { animation with GlobalXPositions = loadPositionBlock stream } |> loadDataBlocks (currentBlock + 1)
+                | 1 -> { animation with GlobalYPositions = loadPositionBlock stream } |> loadDataBlocks (currentBlock + 1)
+                | 2 -> { animation with GlobalZPositions = loadPositionBlock stream } |> loadDataBlocks (currentBlock + 1)
+                | _ -> animation
+            else
+                animation
+
+        loadDataBlocks 0 animation
+    else
+        animation
+
 let loadBinarySeqFromStream stream : Animation = 
     let frameCount = readInt16 stream
     let jointCount = readInt32 stream
@@ -46,4 +72,7 @@ let loadBinarySeqFromStream stream : Animation =
     do readInt16 stream |> readString stream |> ignore
     { FramesPerSecond = 30
       FrameCount = frameCount
-      Joints = (loadJoints jointCount stream) |> List.ofSeq }
+      Joints = (loadJoints jointCount stream) |> List.ofSeq
+      GlobalXPositions = []
+      GlobalYPositions = []
+      GlobalZPositions = [] } |> (loadGlobalPositions stream)
